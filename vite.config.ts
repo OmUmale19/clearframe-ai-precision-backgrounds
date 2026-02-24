@@ -11,6 +11,13 @@ export default defineConfig(({ mode }) => ({
     hmr: {
       overlay: false,
     },
+    proxy: {
+      "/api/remove-background": {
+        target: "https://bitflipper96.app.n8n.cloud",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/remove-background/, "/webhook/remove-background"),
+      },
+    },
   },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {

@@ -17,8 +17,12 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-border/30">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
-        <Link to="/" className="flex items-center gap-2">
-          <img src={logo} alt="ClearFrame AI" className="h-8 w-auto" />
+        <Link to="/" className="flex items-center overflow-hidden h-10 w-40 relative group">
+          <img
+            src={logo}
+            alt="ClearFrame AI"
+            className="absolute inset-x-0 h-[200%] w-auto max-w-none top-1/2 -translate-y-1/2 -ml-2 object-contain"
+          />
         </Link>
 
         {/* Desktop */}

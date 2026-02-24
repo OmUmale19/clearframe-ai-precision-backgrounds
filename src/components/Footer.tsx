@@ -6,7 +6,13 @@ const Footer = () => (
     <div className="container mx-auto px-4 py-12">
       <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
         <div className="col-span-2 md:col-span-1">
-          <img src={logo} alt="ClearFrame AI" className="h-8 w-auto mb-4" />
+          <Link to="/" className="mb-4 inline-block overflow-hidden h-10 w-40 relative group">
+            <img
+              src={logo}
+              alt="ClearFrame AI"
+              className="absolute inset-x-0 h-[200%] w-auto max-w-none top-1/2 -translate-y-1/2 -ml-2 object-contain"
+            />
+          </Link>
           <p className="text-sm text-muted-foreground leading-relaxed">
             AI-powered background removal with pixel-perfect precision.
           </p>
