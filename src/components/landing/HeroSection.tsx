@@ -39,7 +39,7 @@ const HeroSection = () => {
       formData.append("image", file, file.name);
 
       const response = await fetch(
-        "https://bitflipper96.app.n8n.cloud/webhook/remove-background",
+        "/api/remove-background",
         {
           method: "POST",
           body: formData,
@@ -67,17 +67,25 @@ const HeroSection = () => {
       const resultUrl = data.url;
       if (!resultUrl) throw new Error("No image URL found in response. Received: " + rawText.slice(0, 200));
 
-      // Fetch the processed image locally and convert to base64 so it:
+      // Fetch the processed image and convert to base64 data URL so it:
       // 1. Persists in localStorage after page refresh
       // 2. Can be downloaded without CORS issues
-      const imgFetch = await fetch(resultUrl);
-      const imgBlob = await imgFetch.blob();
-      const processedDataUrl: string = await new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = (e) => resolve(e.target?.result as string);
-        reader.onerror = reject;
-        reader.readAsDataURL(imgBlob);
-      });
+      let processedDataUrl: string;
+      try {
+        const imgFetch = await fetch(resultUrl);
+        const imgBlob = await imgFetch.blob();
+        processedDataUrl = await new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = (e) => resolve(e.target?.result as string);
+          reader.onerror = reject;
+          reader.readAsDataURL(imgBlob);
+        });
+      } catch {
+        // If fetching the image blob fails (e.g. Cloudinary CORS), fall back
+        // to using the URL directly — display works, but history won't persist after refresh
+        console.warn("Could not fetch processed image as blob, using URL directly.");
+        processedDataUrl = resultUrl;
+      }
 
       setProcessedUrl(processedDataUrl);
 
