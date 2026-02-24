@@ -8,6 +8,7 @@ const navLinks = [
   { label: "Features", href: "/features" },
   { label: "Pricing", href: "/pricing" },
   { label: "API Docs", href: "/api-docs" },
+  { label: "History", href: "/history" },
 ];
 
 const Navbar = () => {

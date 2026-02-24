@@ -8,6 +8,7 @@ import Pricing from "./pages/Pricing";
 import Features from "./pages/Features";
 import ApiDocs from "./pages/ApiDocs";
 import NotFound from "./pages/NotFound";
+import History from "./pages/History";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/features" element={<Features />} />
           <Route path="/api-docs" element={<ApiDocs />} />
+          <Route path="/history" element={<History />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
